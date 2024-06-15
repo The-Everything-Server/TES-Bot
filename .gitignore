@@ -161,7 +161,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-./song.mp3
+song.mp3
 .env
 
 # Compiled class file
@@ -188,3 +188,6 @@ cython_debug/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+economy.db
+store.db
