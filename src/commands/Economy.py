@@ -42,7 +42,11 @@ class Economy(commands.Cog):
     async def myBalance(self, ctx):
         db = Database("economy.db")
         result = db.execute("SELECT balance FROM economy WHERE user_id = ?", ctx.author.id)
-        await ctx.reply(f"Your balance is {result[0][0]} points!")
+
+        embed=discord.Embed(title=f"{ctx.author.name}'s Balance", color=0x00ff00)
+        embed.add_field(name="Points", value=result[0][0], inline=False)
+
+        await ctx.reply(embed=embed)
 
     @commands.command()
     async def createAccount(self, ctx):
@@ -55,7 +59,7 @@ class Economy(commands.Cog):
         db = Database("store.db")
         result = db.execute("SELECT * FROM shop")
         
-        embed=discord.Embed(title="Shop", description="List of items")
+        embed=discord.Embed(title="Shop", description="List of items", color=0x00ff00)
 
         for row in result:
             mc_id = row[0]
@@ -88,9 +92,10 @@ class Economy(commands.Cog):
             await ctx.reply("You do not have enough money!")
 
     @commands.command(aliases=["send", "give"])
-    async def transferFunds(self, ctx, touser, amnt):
+    async def transferFunds(self, ctx, toUser, amnt):
         econ = Database("economy.db")
         playerOneMoney = econ.execute("SELECT balance FROM economy WHERE user_id = ?", ctx.author.id)
+        toUserMoney = econ.execute("SELECT balance FROM economy WHERE user_id = ?", toUser)
         checkCost = int(playerOneMoney[0][0]) - int(amnt)
         
         if int(amnt) <= 0:
@@ -102,10 +107,18 @@ class Economy(commands.Cog):
         if checkCost >= 0:
             print("PAST IF STATEMENT")
             econ.execute("UPDATE economy SET balance = balance - ? WHERE user_id = ?", int(amnt), ctx.author.id)
-            econ.execute("UPDATE economy SET balance = balance + ? WHERE user_id = ?", int(amnt), int(touser))
-            await ctx.reply(f"Sent {amnt} points!")
+            econ.execute("UPDATE economy SET balance = balance + ? WHERE user_id = ?", int(amnt), int(toUser))
+
+            embed = discord.Embed(title=f"Points Transfer")
+            embed.add_field(name="Total", value=amnt, inline=False)
+            embed.add_field(name="Your Points", value=playerOneMoney[0][0], inline=True)
+            embed.add_field(name="Their Points", value=toUserMoney[0][0], inline=True)
+
+            await ctx.reply(embed=embed)
         else:
-            await ctx.reply("You do not have enough money to transfer!")
+            embed = discord.Embed(title=f"Points Transfer")
+            embed.add_field(name="Error", value="You do not have enough points!")
+            await ctx.reply(embed=embed)
 
 def setup(bot):
     bot.add_cog(Economy(bot))
