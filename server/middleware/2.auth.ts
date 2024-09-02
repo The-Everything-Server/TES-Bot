@@ -3,7 +3,7 @@ import { Payload, generateToken, verifyToken } from '~/utils/security/Jwt'
 export default defineEventHandler(async (event) => {
     const url = getRequestURL(event)
 
-    const unprotectedPaths = [ '/api/auth/' ]
+    const unprotectedPaths = [ '/api/auth/', '/api/user/' ]
 
     if (unprotectedPaths.includes(url.pathname.toString())) {
         return
