@@ -1,10 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/color-mode'
-  ],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
   devtools: { enabled: true },
   nitro: {
     experimental: {
