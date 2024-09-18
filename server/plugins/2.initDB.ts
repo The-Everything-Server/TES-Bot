@@ -1,6 +1,6 @@
 export default defineNitroPlugin(async (nitro) => {
     const db = useDatabase()
-    let addDummyAccounts = true
+    let addDummyAccounts = false
 
     console.log("creating mc_users")
     await db.sql`create table if not exists mc_users (

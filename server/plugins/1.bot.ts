@@ -3,12 +3,15 @@ import dotenv from 'dotenv'
 import path from 'path'
 
 import { Points } from '~/utils/commands/Economy/Points' 
+import { Stats } from '~/utils/commands/User/Stats'
+import { Link } from '~/utils/commands/Minecraft/Link'
+import { Create } from '~/utils/commands/Account/Create'
 
 let client: Client
 let commands = []
 
-const clientId = "1275607223308910614"
-const guildId = "1274035902091493437"
+const clientId = dotenv.config().parsed?.CLIENT_ID
+const guildId = dotenv.config().parsed?.GUILD_ID
 
 export default defineNitroPlugin((nitro) => {
     const rest = new REST().setToken(dotenv.config().parsed?.DISCORD_TOKEN_2)
@@ -21,6 +24,15 @@ export default defineNitroPlugin((nitro) => {
 
     commands.push(Points.data.toJSON())
     client.commands.set(Points.data.name, Points)
+
+    commands.push(Stats.data.toJSON())
+    client.commands.set(Stats.data.name, Stats)
+
+    commands.push(Link.data.toJSON())
+    client.commands.set(Link.data.name, Link)
+
+    commands.push(Create.data.toJSON())
+    client.commands.set(Create.data.name, Create)
 
     client.once('ready', () => {
         console.log(`Logged in as ${client.user?.tag}!`)
