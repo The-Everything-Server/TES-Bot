@@ -10,11 +10,11 @@ import { Create } from '~/server/utils/commands/Account/Create'
 let client: Client
 let commands = []
 
-const clientId = dotenv.config().parsed?.CLIENT_ID
-const guildId = dotenv.config().parsed?.GUILD_ID
+const clientId = dotenv.config().parsed?.PROD_CLIENT_ID
+const guildId = dotenv.config().parsed?.PROD_GUILD_ID
 
 export default defineNitroPlugin((nitro) => {
-    const rest = new REST().setToken(dotenv.config().parsed?.DISCORD_TOKEN_2)
+    const rest = new REST().setToken(dotenv.config().parsed?.PROD_DISCORD_TOKEN)
 
     client = new Client({
         intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
@@ -78,7 +78,7 @@ export default defineNitroPlugin((nitro) => {
 
     test()
     
-    client.login(dotenv.config().parsed?.DISCORD_TOKEN_2)
+    client.login(dotenv.config().parsed?.PROD_DISCORD_TOKEN)
 })
 
 export { client }
