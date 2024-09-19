@@ -20,17 +20,20 @@ export const Create = {
 		const username = interaction.options.getString('username')
         const db = useDatabase()
 
-        await db.sql`
-            INSERT INTO users (username, discord_id, passwordHash, currency, experience)
-            VALUES (${username ? username : interaction.user.globalName}, ${interaction.user.id}, ${generateHex()}, 100, 0)
-        `
+        //await db.sql`
+        //    INSERT INTO users (username, discord_id, passwordHash, currency, experience)
+        //    VALUES (${username ? username : interaction.user.globalName}, ${interaction.user.id}, ${generateHex()}, 100, 0)
+        //`
         
-        const otp = generateTOTP(generateHex())
+        const otp = generateTOTP(dotenv.config().parsed?.OTP_SECRET!)
+        const challenge_phrase = generateHex()
+
+        kv.setItem(otp, challenge_phrase)
 
 		const embed = new EmbedBuilder()
 			.setTitle('Attention!')
             .setDescription(`Please finish your account setup with this OTP!`)
-            .addFields({name: "OTP", value: otp})
+            .addFields({name: "OTP", value: otp}, {name: "Challenge Phrase", value: challenge_phrase})
             .setURL(`${dotenv.config().parsed?.BACKEND_URL}/otp`)
 			.setColor("#FFFF00")
 			.setTimestamp()

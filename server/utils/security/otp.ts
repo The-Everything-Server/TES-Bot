@@ -27,6 +27,19 @@ export function generateTOTP(secret: string, window: number = 90, digits: number
     return code.toString().padStart(digits, '0')
 }
 
+export function verifyTOTP(token: string, secret: string, window: number = 90, digits: number = 6): boolean {
+    for(let i = -1; i <= 1; i++) {
+        const currentTime = Math.floor(Date.now() / 1000) + i * window
+        const generatedToken = generateTOTP(secret, window, digits)
+
+        if (token === generatedToken) {
+            return true
+        }
+
+        return false
+    }
+}
+
 /**
  * Generates random hex code for OTP or other functions
  * @returns string

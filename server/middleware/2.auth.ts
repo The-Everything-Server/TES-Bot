@@ -8,9 +8,9 @@ export default defineEventHandler(async (event) => {
         return
     }
 
-    const unprotectedPaths = [ '/api/auth/', '/api/user/']
+    const unprotectedPaths = [ '/api/auth/', '/api/user/', '/api/otp/']
 
-    if (unprotectedPaths.some(path => pathname.startsWith(path))) {
+    if (unprotectedPaths.some(path => pathname.includes(path))) {
         console.log(pathname)
         return
     }
