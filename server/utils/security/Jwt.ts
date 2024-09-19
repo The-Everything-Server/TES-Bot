@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
 
-const secretKey = 'Change_this_before_running_lmao'
+const secretKey = dotenv.config().parsed?.OTP_SECRET!
 
 export interface Payload {
     userId: number

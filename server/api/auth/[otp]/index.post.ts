@@ -1,17 +1,19 @@
-import { verifyTOTP } from "~/server/utils/security/otp";
+import { verifyOTP } from "~/server/utils/security/otp";
 import dotenv from 'dotenv'
 
 export default defineEventHandler(async (event) => {
+    const db = useDatabase()
     const otp = await getRouterParam(event, "otp")
-    const challenge_phrase = await readBody(event)
-    const kv = useStorage('data')
+    const {newPassword} = await readBody(event)
 
-    const key = await kv.getItem(otp!)
+    const result = await verifyOTP(otp!)
 
-    console.log(key, otp, challenge_phrase.challenge_phrase)
+    if(result !== null) {
+        console.log(result, newPassword)
 
-    if(key == challenge_phrase.challenge_phrase) {
-        return verifyTOTP(otp, dotenv.config().parsed?.OTP_SECRET!)
+        await db.sql`UPDATE users SET passwordHash=${newPassword} WHERE discord_id=${result}`
+
+        return new Response(JSON.stringify({"message": "successful"}), { status: 200 })
     }
 
     return new Response(JSON.stringify({"message":'Invalid credentials'}), { status: 401 })
