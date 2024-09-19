@@ -11,9 +11,5 @@ export default defineNuxtConfig({
       '/api/**': {cors: true, headers: { 'access-control-allow-methods': 'GET' } }
     }
   },
-  ui: {
-    primary: 'green',
-    gray: 'cool'
-  },
   
 })
