@@ -13,7 +13,7 @@
                 
                 <div class="space-x-2">
                     <UButton @click="submitLogin">Login</UButton>
-                    <UButton color="gray">Forgot password?</UButton>
+                    <UButton @click="resetLogin" color="gray">Forgot password?</UButton>
                 </div>
             </div>
         </UCard>
@@ -40,5 +40,9 @@ const submitLogin = async (event) => {
     })
 
     localStorage.setItem("token", result.data.token)
+}
+
+const resetLogin = async (event) => {
+    window.location.href = "/login/reset"
 }
 </script>

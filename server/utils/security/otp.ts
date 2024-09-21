@@ -1,5 +1,4 @@
 import * as crypto from 'crypto'
-import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
 const secret = dotenv.config().parsed?.OTP_SECRET!

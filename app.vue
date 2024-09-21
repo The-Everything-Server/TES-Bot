@@ -11,8 +11,11 @@ const route = useRoute()
 
 onMounted(() => {
   console.log("ROUTE", route.fullPath)
+  const pathname = route.path
 
-  if(route.path == "/login") {
+  const unprotectedPaths = [ '/login', '/otp']
+
+  if(unprotectedPaths.some(path => pathname.includes(path))) {
     return
   }
 

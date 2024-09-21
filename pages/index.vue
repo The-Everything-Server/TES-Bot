@@ -47,4 +47,10 @@ const showPanel = (panel) => {
 	panelNum.value = panel
 }
 
+onMounted(() => {
+  const keys = useStorage("data").getKeys()
+
+  console.log(keys)
+})
+
 </script>
