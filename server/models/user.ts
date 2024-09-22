@@ -9,5 +9,6 @@ export const users = sqliteTable('users', {
     currency: integer('currency').default(0),
     experience: real('experience').default(1.0),
     mcUsername: text('mc_username').unique().references(() => mcUsers.mcUsername),
-    redeemedGifts: text('redeemedGifts')
+    redeemedGifts: text('redeemedGifts'),
+    role: text('role').notNull()
 })

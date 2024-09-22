@@ -22,7 +22,7 @@ export const Create = {
 		const username = interaction.user.globalName?.toString()
 
         console.log(username)
-        await db.insert(users).values({username: username, discordId: interaction.user.id, passwordHash: generateHex()})
+        await db.insert(users).values({username: username, discordId: interaction.user.id, passwordHash: generateHex(), role: "user"})
         
         //TODO: Redo this section
         const challengePhrase = generateHex()
