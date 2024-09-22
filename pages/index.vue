@@ -1,56 +1,49 @@
 <template>
   <div class="flex flex-row items start h-[calc(100vh-16px)] w-[calc(100vw-8px)]">
-    <UCard class="flex flex-col items-start h-full w-[200px] m-2">
-      <div class="space-y-2">
-        <img src="../public/tes.jpg" class="rounded-lg"/>
-        <p>THE EVERYTHING SERVER</p>
-        <UDivider />
-        <div class="flex flex-col w-full gap-2">
-          <UButton @click="showPanel(0)">User Panel</UButton>
-          <UButton @click="showPanel(1)">Admin Panel</UButton>
+    <UCard class="flex flex-col items-start h-full w-[300px] m-2">
+        <div class="space-y-2">
+            <img src="../public/tes.jpg" class="rounded-lg"/>
+            <p>THE EVERYTHING SERVER</p>
+            <UDivider />
+            <div class="flex flex-col w-full gap-2">
+                <UButton @click="">Account Services</UButton>
+                <UButton @click="" color="red">Log out</UButton>
+            </div>
         </div>
-      </div>
     </UCard>
 
     <UCard v-if="panelNum == 0" class="flex flex-col h-full w-full my-2">
-      <div class="flex flex-col gap-2">
-        <p class="text-3xl">User Panel</p>
-        <UDivider />
-      </div>
+        <div class="flex flex-col gap-2">
+            <p class="text-3xl">Account Services</p>
+            <UDivider />
+            <p class="text-2xl">Welcome back, Tobias!</p>
+            <div class="flex flex-row gap-2">
+                <UCard>
+                    <div class="flex flex-col w-[200px] gap-2">
+                        <p>Security</p>
+                        <UButton>Change Password</UButton>
+                        <UButton>Change Discord ID</UButton>
+                    </div>
+                </UCard>
+
+                <UCard>
+                    <div class="flex flex-col w-[200px] gap-2">
+                        <p>Game Related</p>
+                        <UButton>Redeem Gift Code</UButton>
+                        <UButton>Link Account</UButton>
+                    </div>
+                </UCard>
+            </div>
+        </div>
     </UCard>
 
-    <UCard v-if="panelNum == 1" class="flex flex-col h-full w-full my-2">
-      <div class="flex flex-col gap-2">
-        <p class="text-3xl">Admin Panel</p>
-        <UDivider/>
-        <UTable :rows="people" />
-      </div>
-    </UCard> 
   </div>
 </template>
 
 
 <script setup>
 const panelNum = ref(0)
-
-const people = [{
-  id: 1,
-  Hash: '44bd984ef966276ebd6f4ea1738f0ad2e2429aac6a781c60c6904ca0d4dd49ee',
-  DiscordID: '192983401095'
-}, {
-  id: 2,
-  Hash: '44bd984ef966276ebd6f4ea1738f0ad2e2429aac6a781c60c6904ca0d4dd49ee',
-  DiscordID: '192983401095'
-}]
-
 const showPanel = (panel) => {
-	panelNum.value = panel
+    panelNum.value = panel
 }
-
-onMounted(() => {
-  const keys = useStorage("data").getKeys()
-
-  console.log(keys)
-})
-
 </script>

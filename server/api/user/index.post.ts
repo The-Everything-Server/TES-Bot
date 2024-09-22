@@ -1,9 +1,10 @@
+import { db } from "~/server/db/db"
+import { users } from "~/server/models/user"
+
 export default defineEventHandler(async (event) => {
-    const db = await useDatabase()
     const {username, password, discord_id} = await readBody(event)
 
-    const user = await db.prepare("INSERT INTO users (username, passwordHash, discord_id) VALUES ($username, $passwordHash, $discord_id)")
-    const info = user.run({username, passwordHash: password, discord_id})
+    const user = await db.insert(users).values({username: username, passwordHash: password, discordId: discord_id})
 
-    return info
+    return user
 })

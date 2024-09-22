@@ -2,13 +2,15 @@ import {client} from "~/server/plugins/1.bot"
 import { generateOTP, generateHex } from "~/server/utils/security/otp"
 import { SlashCommandBuilder, CommandInteraction, EmbedBuilder, Options } from "discord.js"
 import dotenv from 'dotenv'
+import { db } from "~/server/db/db"
+import { users } from "~/server/models/user"
+import { eq } from "drizzle-orm"
 
 export default defineEventHandler(async (event) => {
     const {discordId} = await readBody(event)
-    const db = useDatabase()
 
-    const user = await db.sql`SELECT username FROM users WHERE discord_id=${discordId}`
-    
+    const user = await db.select({username: users.username}).from(users).where(eq(users.discordId, discordId))
+
     if(user) {
         const hash = generateHex()
         const otp = generateOTP(discordId, hash)

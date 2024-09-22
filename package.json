@@ -4,10 +4,14 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@nuxt/ui": "^2.18.5",
@@ -15,6 +19,8 @@
     "better-sqlite3": "^11.3.0",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.24.2",
+    "drizzle-orm": "^0.33.0",
     "jsonwebtoken": "^9.0.2",
     "nuxt": "^3.13.0",
     "tailwindcss": "^3.4.12",

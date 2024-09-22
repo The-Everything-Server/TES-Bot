@@ -1,11 +1,13 @@
+import { and, eq } from "drizzle-orm"
+import { db } from "~/server/db/db"
+import { gifts } from "~/server/models/gifts"
+import { users } from "~/server/models/user"
+
 export default defineEventHandler(async (event) => {
-    const db = await useDatabase()
     const { game, code, items } = await readBody(event)
 
     const itemsString = JSON.stringify(items)
+    await db.insert(gifts).values({game: game, code: code, items: itemsString})
 
-    const gift = await db.prepare('INSERT INTO gifts (game, code, items) VALUES ($game, $code, $items)')
-    const info = gift.run({ game, code, items: itemsString })
-
-    return info
+    return new Response(JSON.stringify({message: "Successful!"}), {status: 200})
 })

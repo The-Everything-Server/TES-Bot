@@ -1,75 +1,19 @@
-# Nuxt 3 Minimal Starter
+# TES-BOT
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This discord bot manages game servers, an economy, and includes a frontend to manage the bot!
 
-## Setup
+Here is an example .env file to get started
+```env
+PROD_DISCORD_TOKEN = prod_token
+DEV_DISCORD_TOKEN = dev_token
 
-Make sure to install the dependencies:
+DEV_CLIENT_ID = dev_client
+DEV_GUILD_ID = dev_guild
 
-```bash
-# npm
-npm install
+PROD_CLIENT_ID = prod_client
+PROD_GUILD_ID = prod_guild
 
-# pnpm
-pnpm install
+BACKEND_URL = http://localhost:3000
 
-# yarn
-yarn install
-
-# bun
-bun install
+OTP_SECRET = y0ur_53cr37
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

@@ -1,8 +1,10 @@
 import { verifyOTP } from "~/server/utils/security/otp";
 import dotenv from 'dotenv'
+import { db } from "~/server/db/db"
+import { users } from "~/server/models/user"
+import { and, eq } from "drizzle-orm"
 
 export default defineEventHandler(async (event) => {
-    const db = useDatabase()
     const otp = await getRouterParam(event, "otp")
     const {newPassword} = await readBody(event)
 
@@ -10,8 +12,7 @@ export default defineEventHandler(async (event) => {
 
     if(result !== null) {
         console.log(result, newPassword)
-
-        await db.sql`UPDATE users SET passwordHash=${newPassword} WHERE discord_id=${result}`
+        await db.update(users).set({passwordHash: newPassword}).where(eq(users.discordId, result))
 
         return new Response(JSON.stringify({"message": "successful"}), { status: 200 })
     }

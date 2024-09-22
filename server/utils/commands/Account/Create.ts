@@ -3,6 +3,9 @@ import { client } from "~/server/plugins/1.bot"
 import { generateHex, generateOTP } from "~/server/utils/security/otp"
 import dotenv from 'dotenv'
 
+import { db } from "~/server/db/db"
+import { users } from "~/server/models/user"
+
 export const Create = {
 
 	data: new SlashCommandBuilder()
@@ -16,13 +19,10 @@ export const Create = {
         }),
 
 	async execute(interaction: CommandInteraction) {
-		const username = interaction.options.getString('username')
-        const db = useDatabase()
+		const username = interaction.user.globalName?.toString()
 
-        await db.sql`
-           INSERT INTO users (username, discord_id, passwordHash, currency, experience)
-           VALUES (${username ? username : interaction.user.globalName}, ${interaction.user.id}, ${generateHex()}, 100, 0)
-        `
+        console.log(username)
+        await db.insert(users).values({username: username, discordId: interaction.user.id, passwordHash: generateHex()})
         
         //TODO: Redo this section
         const challengePhrase = generateHex()
