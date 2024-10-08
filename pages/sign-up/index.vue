@@ -1,5 +1,5 @@
 <template>
     <div class="flex justify-center items-center align-center py-8">
-        <SignIn signUpUrl="/sign-up"/>
+        <SignUp signInUrl="/sign-in"/>
     </div>
 </template>
