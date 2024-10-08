@@ -14,12 +14,17 @@ export const generateToken = (payload: Payload) => {
     return token
 }
 
-export const verifyToken = (token: string): Payload => {
+// TODO: Rework this function, namely better returning
+export const verifyToken = (token: string | undefined): Payload | boolean => {
+    if(token === undefined) {
+        return false
+    }
+
     try {
         const payload = jwt.verify(token, secretKey) as Payload
-
         return payload
     } catch (error) {
         console.log('Error in verifying token', error)
+        return false
     }
 }

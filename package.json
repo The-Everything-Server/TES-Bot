@@ -14,6 +14,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@clerk/backend": "^1.13.8",
     "@nuxt/ui": "^2.18.5",
     "axios": "^1.7.7",
     "better-sqlite3": "^11.3.0",
@@ -25,6 +26,7 @@
     "nuxt": "^3.13.0",
     "tailwindcss": "^3.4.12",
     "vue": "latest",
+    "vue-clerk": "^0.6.17",
     "vue-router": "latest"
   },
   "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247",

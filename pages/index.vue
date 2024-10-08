@@ -42,6 +42,16 @@
 
 
 <script setup>
+definePageMeta({
+  middleware: 'auth',
+  auth: {
+    guestRedirectUrl: '/sign-in',
+    // permission: 'org:invoices:create',
+    // role: 'org:billing'
+    // condition: (has) => has('org:invoices:create')
+  }
+})
+
 const panelNum = ref(0)
 const showPanel = (panel) => {
     panelNum.value = panel
